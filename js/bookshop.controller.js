@@ -6,9 +6,10 @@ var gIsAddNewBookActive = false
 function onInit() {
     renderFilterByQueryStringParams()
     renderBooks()
+    console.log('hi');
 }
 
-function renderBooks() {
+function renderBooks() {/////
     var books = getBooks()
     var strHTMLs =
         books.map(book => `<tr><td class="cell">${book.id}</td>
