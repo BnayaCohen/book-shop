@@ -1,0 +1,81 @@
+body {
+    background-color: rgb(199, 222, 157);
+    color: whitesmoke;
+    overflow-x: hidden;
+    padding: 0 40px;
+    text-align: center;
+}
+
+body.rtl {
+    direction: rtl;
+}
+
+
+div{
+    margin: 5px;
+}
+
+button {
+    color: whitesmoke;
+    border:0;
+    border-radius: .2em;
+    background-color: rgb(86, 126, 118);
+    padding: 6px 10px;
+    margin: 4px;
+    cursor: pointer;    
+}
+button:hover {
+    color: rgb(168, 207, 105);
+}
+
+section {
+    background-color: rgb(139, 194, 106);
+    width: 90%;
+    padding: 0.6em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 0.2em;
+}
+
+.book-datails-modal{
+    background-color: rgb(64, 72, 60);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 0.2em;
+    width: 90%;
+    display: none;
+}
+
+table {
+    background-color: rgb(104, 114, 66);
+    width: 98%;
+    margin: auto;
+    border: solid;
+    border-radius: 0.5em;
+}
+
+th{
+    border-bottom: solid;
+    text-align: start;
+}
+
+.cell {
+    background-color: rgb(200, 193, 178);
+    width:3em;
+    height: 2em;
+    color: #222;
+    border-radius: 0.1em;
+}
+
+img{
+    width: 60px;;
+    height:40px;
+}
+
+.new-book-inputs{
+    display: none;
+}
