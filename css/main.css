@@ -15,6 +15,10 @@ div{
     margin: 5px;
 }
 
+h3{
+    display: inline;
+}
+
 button {
     color: whitesmoke;
     border:0;
@@ -24,6 +28,11 @@ button {
     margin: 4px;
     cursor: pointer;    
 }
+
+button.pressed-page{
+    background-color: rgb(115, 173, 162);
+}
+
 button:hover {
     color: rgb(168, 207, 105);
 }
@@ -31,12 +40,24 @@ button:hover {
 section {
     background-color: rgb(139, 194, 106);
     width: 90%;
-    padding: 0.6em;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 0.2em;
+}
+
+.book-update-modal{
+    background-color: rgb(64, 72, 60);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 0.2em;
+    width:50%;
+    height: 25%;
+    padding-top: 60px;
+    display: none;
 }
 
 .book-datails-modal{
@@ -61,6 +82,10 @@ table {
 th{
     border-bottom: solid;
     text-align: start;
+}
+
+th:hover{
+    background-color: rgb(76, 82, 55);
 }
 
 .cell {

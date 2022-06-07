@@ -1,18 +1,39 @@
 'use strict'
-const STORAGE_KEY = 'bookDB'
 
+const STORAGE_KEY = 'bookDB'
+const PAGE_SIZE = 3
 const gBookNames = ['Tunnels', 'Hunger Games', 'Atomic Habits', 'The Deliver']
 
 var gBooks
 var gBookIdx
 var gFilterBy = { maxPrice: 2000, minRate: 0 }
+var gPageIdx = 0
 
 
 _createBooks()
 
+function changePage(page) {
+    gPageIdx = page
+}
+
+function getPageIndex() {
+    return gPageIdx
+}
+
+function getPagesCount() {
+    return parseInt(_getFilteredBooks().length / PAGE_SIZE)
+}
+
+function _getFilteredBooks() {
+    return gBooks.filter(book => book.price <= gFilterBy.maxPrice && book.rate >= gFilterBy.minRate)
+}
+
 function getBooks() {
-    var filteredBooks = gBooks.filter(book=> book.price<=gFilterBy.maxPrice&&book.rate>=gFilterBy.minRate)
-    return filteredBooks
+    var books = _getFilteredBooks()
+
+    const startIdx = gPageIdx * PAGE_SIZE
+    books = books.slice(startIdx, startIdx + PAGE_SIZE)
+    return books
 }
 
 function removeBook(bookId) {
@@ -24,6 +45,7 @@ function removeBook(bookId) {
 function addBook(bookName, bookPrice) {
     const newBook = _createBook(bookName, bookPrice)
     gBooks.push(newBook)
+    _saveBooksToStorage()
 }
 
 function updateBookPrice(bookId, bookPrice) {
@@ -43,10 +65,19 @@ function getBookById(bookId) {
     return book
 }
 
-function setBookFilter(filterBy={}){
+function setBookFilter(filterBy = {}) {
     if (filterBy.maxPrice !== undefined) gFilterBy.maxPrice = filterBy.maxPrice
     if (filterBy.minRate !== undefined) gFilterBy.minRate = filterBy.minRate
     return gFilterBy
+}
+
+function getSortedTable(sortBy) {
+    switch (sortBy) {
+        case 'name':
+            return getBooks().sort((book1, book2) => book1[sortBy] > book2[sortBy] ? 1 : -1)
+        case 'price':
+            return getBooks().sort((book1, book2) => book1[sortBy] - book2[sortBy])
+    }
 }
 
 function _createBook(name, price = +getRandomInclusive(50, 99)) {

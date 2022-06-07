@@ -2,54 +2,88 @@
 
 var gTrans = {
     title: {
-        en: 'What Todo?',
-        es: 'Mis Cosas Por Hacer',
-        he: 'משימות'
+        en: 'Welcome to the best book shop',
+        he: 'ברוכים הבאים לחנות המטורפת'
     },
-    subtitle: {
-        en: 'MVC - Model-View-Controller',
-        es: 'MVC - Modelo-Vista-Controlador',
-        he: 'מודל - ויו - קונטרולר',
+    language: {
+        en: 'Language:',
+        he: 'שפה:',
     },
-    'filter-all': {
-        en: 'All',
-        es: 'Todos',
-        he: 'הכל',
+    'filter-title': {
+        en: 'Filter',
+        he: 'פילטר',
     },
-    'filter-active': {
-        en: 'Active',
-        es: 'Activo',
-        he: 'פעיל'
+    'filter-min-rate': {
+        en: 'Set min rate:',
+        he: 'דירוג מינימלי:',
     },
-    'filter-done': {
-        en: 'Done',
-        es: 'Completo',
-        he: 'הושלם',
+    'table-head-id': {
+        en: 'Id',
+        he: 'מספור',
     },
-    'stat-todo-label': {
-        en: 'Todo',
-        es: 'Hacer',
-        he: 'לעשות',
+    'table-head-image': {
+        en: 'Image',
+        he: 'תמונה',
     },
-    'stat-active-label': {
-        en: 'Active',
-        es: 'Activo',
-        he: 'פעיל',
+    'table-head-title': {
+        en: 'Title',
+        he: 'כותר',
     },
-    add: {
-        en: 'Add',
-        es: 'Aggregar',
-        he: 'הוסף',
+    'table-head-price': {
+        en: 'Price',
+        he: 'מחיר',
     },
-    sure: {
-        en: 'Are you sure?',
-        es: 'Estas Seguru?',
-        he: 'בטוח נשמה?',
+    'table-head-rate': {
+        en: 'Rate',
+        he: 'דירוג',
     },
-    'add-todo-placeholder': {
-        en: 'What needs to be done?',
-        es: 'Que te tienes que hacer?',
-        he: 'מה יש לעשות?'
+    'table-head-actions': {
+        en: 'Actions',
+        he: 'פעולות',
+    },
+    'table-read': {
+        en: 'Read',
+        he: 'הצג',
+    },
+    'table-update': {
+        en: 'Update',
+        he: 'עדכן',
+    },
+    'table-delete': {
+        en: 'Delete',
+        he: 'מחק',
+    },
+    'update-book-price': {
+        en: 'Update Price',
+        he: 'עדכן מחיר',
+    },
+    'add-new-book': {
+        en: 'Add new book',
+        he: 'הוסף ספר חדש',
+    },
+    'close-modal-btn': {
+        en: 'Close',
+        he: 'סגור',
+    },
+    'page-back': {
+        en: 'Back',
+        he: 'אחורה',
+    },
+    'page-next': {
+        en: 'Next',
+        he: 'קדימה',
+    },
+    'max-price-placeholder': {
+        en: 'Set max price',
+        he: 'הכנס מחיר הכי גבוה'
+    },
+    'new-book-name-placeholder': {
+        en: 'Set book name',
+        he: 'הכנס את שם הספר'
+    },
+    'new-book-price-placeholder': {
+        en: 'Set book price',
+        he: 'הכנס את מחיר הספר'
     }
 }
 
@@ -57,10 +91,10 @@ var gCurrLang = 'en';
 
 function getTrans(transKey) {
     var keyTrans = gTrans[transKey];
-    if(!keyTrans) return "UNKNOWN";
-    
+    if (!keyTrans) return "UNKNOWN";
+
     var txt = keyTrans[gCurrLang] // he
-    if(!txt) txt = keyTrans.en
+    if (!txt) txt = keyTrans.en
 
     return txt
 }
@@ -70,10 +104,10 @@ function doTrans() {
     els.forEach(el => {
         var transKey = el.dataset.trans
         var txt = getTrans(transKey)
-        
-        if(el.localName === "input") {
-            el.setAttribute("placeholder",txt)
-        } else el.innerText = txt 
+
+        if (el.localName === "input") {
+            el.setAttribute("placeholder", txt)
+        } else el.innerText = txt
     })
 }
 
@@ -81,29 +115,28 @@ function setLang(lang) {
     gCurrLang = lang // he
 }
 
-// function formatNumOlder(num) {
-//     return num.toLocaleString('es')
-// }
+function formatNum(num) {
+    return new Intl.NumberFormat(gCurrLang).format(num);
+}
 
-// function formatNum(num) {
-//     return new Intl.NumberFormat(gCurrLang).format(num);
-// }
+function formatCurrency(num) {
+    switch (gCurrLang) {
+        case 'he': return new Intl.NumberFormat('he-IL', { style: 'currency', currency: 'ILS' }).format(num);
+        case 'en': return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(num);
+    }
+}
 
-// function formatCurrency(num) {
-//     return new Intl.NumberFormat('he-IL',{ style: 'currency', currency: 'ILS' }).format(num);
-// }
+function formatDate(time) {
 
-// function formatDate(time) {
+    var options = {
+        year: 'numeric', month: 'short', day: 'numeric',
+        hour: 'numeric', minute: 'numeric',
+        hour12: true,
+    };
 
-//     var options = {
-//         year: 'numeric', month: 'short', day: 'numeric',
-//         hour: 'numeric', minute: 'numeric',
-//         hour12: true,
-//     };
+    return new Intl.DateTimeFormat(gCurrLang, options).format(time);
+}
 
-//     return new Intl.DateTimeFormat(gCurrLang,options).format(time);
-// }
-
-// function kmToMiles(km) {
-//     return km / 1.609;
-// }
+function kmToMiles(km) {
+    return km / 1.609;
+}

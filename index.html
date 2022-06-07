@@ -10,8 +10,8 @@
 </head>
 
 <body onload="onInit()">
-    <h1>Welcome to the best book shop</h1>
-    Language:
+    <h1 data-trans="title">Welcome to the best book shop</h1>
+  <h3 data-trans="language"> Language:</h3> 
             <select class="language" onchange="onSetLang(this.value)">
                 <option value="en">English</option>
                 <option value="he">עברית</option>
@@ -19,47 +19,54 @@
 
     <section class="books-display">
 
-        <h2>Filter</h2>
-        <input type="number" class="filter-price-number" placeholder="Set max Price"
+        <h2 data-trans="filter-title">Filter</h2>
+        <input type="number" class="filter-price-number" data-trans="max-price-placeholder" placeholder="Set max Price"
             onchange="onSetFilterBy({maxPrice: this.value})" />
-        <label>
-            Set min Rate:
+        <label data-trans="filter-min-rate">
+            Set min Rate: </label>
             <input type="range" min="0" max="10" value="5" class="filter-rate-range"
                 onchange="this.title=this.value;onSetFilterBy({minRate: this.value})" />
-        </label>
         <hr>
+        <button data-trans="page-back" onclick="onAddPage(-1)">Back</button><span class="page-buttons"></span>
+        <button data-trans="page-next" onclick="onAddPage(1)">Next</button>
         <table>
             <thead>
-                <th>Id</th>
-                <th>Image</th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Rate</th>
-                <th colspan="3">Actions</th>
+                <th data-trans="table-head-id">Id</th>
+                <th data-trans="table-head-image">Image</th>
+                <th data-trans="table-head-title" onclick="onSortBy('name')">Title</th>
+                <th data-trans="table-head-price" onclick="onSortBy('price')">Price</th>
+                <th data-trans="table-head-rate">Rate</th>
+                <th colspan="3" data-trans="table-head-actions">Actions</th>
             </thead>
             <tbody class="books-table">
 
             </tbody>
         </table>
         <div class="new-book-inputs">
-            <input type="text" id="new-book-name-input" placeholder="Set book Name"/>
-            <input type="number" id="new-book-price-input" placeholder="Set book Price"/>
+            <input type="text" id="new-book-name-input" data-trans="new-book-name-placeholder" placeholder="Set book Name"/>
+            <input type="number" id="new-book-price-input" data-trans="new-book-price-placeholder" placeholder="Set book Price"/>
         </div>
-        <button onclick="onAddBook()">Add new book</button>
+        <button onclick="onAddBook()" data-trans="add-new-book">Add new book</button>
     </section>
 
+    <div class="book-update-modal">
+        <input type="text" id="book-price-input" data-trans="new-book-price-placeholder" placeholder="Set book price"/>
+        <button onclick="onUpdateBook()" data-trans="update-book-price">Update Price</button>
+    </div>
+
     <div class="book-datails-modal">
-        <h1 class="book-modal-title">Book Details</h1>
+        <h1 class="book-modal-title"></h1>
         <img class="book-modal-image">
         <h2 class="book-modal-price"></h2>
         <button onclick="onChangeRate(-1)">-</button><span class="book-rate"></span>
         <button onclick="onChangeRate(1)">+</button>
         <p class="book-description"></p>
-        <button onclick="onCloseDetailsModal()">Close</button>
+        <button data-trans="close-modal-btn" onclick="onCloseDetailsModal()">Close</button>
     </div>
 
     <script src="js/services/storage.service.js"></script>
     <script src="js/services/util.service.js"></script>
+    <script src="js/services/i18n.service.js"></script>
     <script src="js/services/book.service.js"></script>
     <script src="js/bookshop.controller.js"></script>
 
