@@ -6,30 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <title>Book Shop</title>
 </head>
 
-<body onload="onInit()">
-    <h1 data-trans="title">Welcome to the best book shop</h1>
-  <h3 data-trans="language"> Language:</h3> 
-            <select class="language" onchange="onSetLang(this.value)">
-                <option value="en">English</option>
-                <option value="he">עברית</option>
-            </select>
+<body class="bg-warning text-center" onload="onInit()">
 
+    <!-- header -->
+    <h1 class="title bg-secondary py-2" data-trans="title">Welcome to the best book shop</h1>
+    <h3 data-trans="language"> Language:</h3>
+    <select class="language" onchange="onSetLang(this.value)">
+        <option value="en">English</option>
+        <option value="he">עברית</option>
+    </select>
+
+
+    <!-- main -->
     <section class="books-display">
-
-        <h2 data-trans="filter-title">Filter</h2>
-        <input type="number" class="filter-price-number" data-trans="max-price-placeholder" placeholder="Set max Price"
-            onchange="onSetFilterBy({maxPrice: this.value})" />
-        <label data-trans="filter-min-rate">
-            Set min Rate: </label>
+        <div class="text-center">
+            <h2 data-trans="filter-title">Filter</h2>
+            <input type="number" class="filter-price-number" data-trans="max-price-placeholder"
+                placeholder="Set max Price" onchange="onSetFilterBy({maxPrice: this.value})" />
+            <label class="container" data-trans="filter-min-rate">
+                Set min Rate: </label>
             <input type="range" min="0" max="10" value="5" class="filter-rate-range"
                 onchange="this.title=this.value;onSetFilterBy({minRate: this.value})" />
+        </div>
         <hr>
-        <button data-trans="page-back" onclick="onAddPage(-1)">Back</button><span class="page-buttons"></span>
-        <button data-trans="page-next" onclick="onAddPage(1)">Next</button>
-        <table>
+        
+
+        <div class="text-center mb-2">
+            <button class="btn bg-success" data-trans="page-back" onclick="onAddPage(-1)">Back</button><span
+                class="page-buttons"></span>
+            <button class="btn bg-success" data-trans="page-next" onclick="onAddPage(1)">Next</button>
+        </div>
+        <table class="table px-2 table-secondary table-striped table-bordered">
             <thead>
                 <th data-trans="table-head-id">Id</th>
                 <th data-trans="table-head-image">Image</th>
@@ -39,36 +51,76 @@
                 <th colspan="3" data-trans="table-head-actions">Actions</th>
             </thead>
             <tbody class="books-table">
-
             </tbody>
         </table>
-        <div class="new-book-inputs">
-            <input type="text" id="new-book-name-input" data-trans="new-book-name-placeholder" placeholder="Set book Name"/>
-            <input type="number" id="new-book-price-input" data-trans="new-book-price-placeholder" placeholder="Set book Price"/>
+
+
+        <div class="text-center ">
+            <div class="new-book-inputs">
+                <input type="text" id="new-book-name-input" data-trans="new-book-name-placeholder"
+                    placeholder="Set book Name" />
+                <input type="number" id="new-book-price-input" data-trans="new-book-price-placeholder"
+                    placeholder="Set book Price" />
+            </div>
+            <button class="btn bg-light" onclick="onAddBook()" data-trans="add-new-book">Add new book</button>
         </div>
-        <button onclick="onAddBook()" data-trans="add-new-book">Add new book</button>
     </section>
 
-    <div class="book-update-modal">
-        <input type="text" id="book-price-input" data-trans="new-book-price-placeholder" placeholder="Set book price"/>
-        <button onclick="onUpdateBook()" data-trans="update-book-price">Update Price</button>
+
+    <!-- modals -->
+    <div class="update-price-modal modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 data-trans="update-book-price" class="modal-title">Update Price</h5>
+                </div>
+                <div class="modal-body text-center">
+                    <input class="pb-1" type="text" id="book-price-input" data-trans="new-book-price-placeholder"
+                        placeholder="Set book price" />
+                    <button class="btn bg-primary text-light" onclick="onUpdateBook()"
+                        data-trans="update-book-price">Update Price</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-trans="close-modal-btn"
+                        onclick="$('.update-price-modal').modal('hide')">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="book-datails-modal">
-        <h1 class="book-modal-title"></h1>
-        <img class="book-modal-image">
-        <h2 class="book-modal-price"></h2>
-        <button onclick="onChangeRate(-1)">-</button><span class="book-rate"></span>
-        <button onclick="onChangeRate(1)">+</button>
-        <p class="book-description"></p>
-        <button data-trans="close-modal-btn" onclick="onCloseDetailsModal()">Close</button>
+    <div class="book-datails-modal modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 data-trans="update-book-price" class="modal-title book-modal-title">Details</h5>
+                </div>
+                <div class="modal-body text-center">
+                    <img class="book-modal-image">
+                    <h2 class="pt-3 book-modal-price"></h2>
+                    <div class="py-2">
+                        <button class="btn mx-2 bg-success" onclick="onChangeRate(-1)">-</button><span
+                            class="book-rate"></span>
+                        <button class="btn mx-2 bg-success" onclick="onChangeRate(1)">+</button>
+                    </div>
+                    <p class="border-top book-description"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-trans="close-modal-btn"
+                        onclick="onCloseDetailsModal()">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <script src="lib/jquery/jquery.js"></script>
     <script src="js/services/storage.service.js"></script>
     <script src="js/services/util.service.js"></script>
     <script src="js/services/i18n.service.js"></script>
     <script src="js/services/book.service.js"></script>
     <script src="js/bookshop.controller.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

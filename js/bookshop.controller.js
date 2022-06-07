@@ -16,9 +16,9 @@ function renderBooks(books = getBooks()) {
             <td class="cell">${book.name}</td>
             <td class="cell">${formatCurrency(book.price)}</td>
             <td class="cell">${book.rate}</td>
-            <td class="cell"><button onclick="onReadBook(${book.id})">${getTrans('table-read')}</button></td>
-            <td class="cell"><button onclick="onUpdateBookTableBtn(${book.id})">${getTrans('table-update')}</button></td>
-            <td class="cell"><button onclick="onRemoveBook(${book.id})">${getTrans('table-delete')}</button></td></tr>`
+            <td class="cell"><button class="btn bg-warning" onclick="onReadBook(${book.id})">${getTrans('table-read')}</button></td>
+            <td class="cell"><button class="btn bg-warning" onclick="onUpdateBookTableBtn(${book.id})">${getTrans('table-update')}</button></td>
+            <td class="cell"><button class="btn bg-warning" onclick="onRemoveBook(${book.id})">${getTrans('table-delete')}</button></td></tr>`
         )
     var elTable = document.querySelector('.books-table')
     elTable.innerHTML = strHTMLs.join('')
@@ -28,8 +28,8 @@ function renderPageBtns() {
     var pageCount = getPagesCount()
     var strHTMLs = ''
     for (let i = 0; i <= pageCount; i++) {
-        var className = ''
-        if (i === getPageIndex()) className = 'pressed-page'
+        var className = 'btn mx-1 '
+        className += i === getPageIndex() ? 'bg-light' : 'bg-success'
         strHTMLs += `<button class="${className}" onclick="onChangePage(${i})">${i + 1}</button>`
     }
     var elTable = document.querySelector('.page-buttons')
@@ -60,8 +60,7 @@ function onAddBook() {
 
 function onUpdateBookTableBtn(bookId) {
     gCurrBook = getBookById(bookId)
-    const elBookUpdateModal = document.querySelector('.book-update-modal')
-    elBookUpdateModal.style.display = 'block'
+    $('.update-price-modal').modal('show')
 }
 
 function onUpdateBook() {
@@ -71,8 +70,7 @@ function onUpdateBook() {
     updateBookPrice(gCurrBook.id, newPrice)
     renderBooks()
     document.getElementById('book-price-input').value = ''
-    const elBookUpdateModal = document.querySelector('.book-update-modal')
-    elBookUpdateModal.style.display = 'none'
+    $('.update-price-modal').modal('hide')
     gCurrBook = null
 }
 
@@ -81,12 +79,11 @@ function onReadBook(bookId) {
 
     document.querySelector('.book-modal-title').innerText = gCurrBook.name
     document.querySelector('.book-modal-image').src = gCurrBook.imgUrl
-    document.querySelector('.book-modal-price').innerText = gCurrBook.price + '$'
+    document.querySelector('.book-modal-price').innerText = formatCurrency(gCurrBook.price)
     document.querySelector('.book-rate').innerText = gCurrBook.rate
     document.querySelector('.book-description').innerText = gCurrBook.description
 
-    var elBookDetailsModal = document.querySelector('.book-datails-modal')
-    elBookDetailsModal.style.display = 'block'
+    $('.book-datails-modal').modal('show')
 
     const queryStringParams = `?currBookId=${gCurrBook.id}`
     const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
@@ -94,8 +91,7 @@ function onReadBook(bookId) {
 }
 
 function onCloseDetailsModal() {
-    var elBookDetailsModal = document.querySelector('.book-datails-modal')
-    elBookDetailsModal.style.display = 'none'
+    $('.book-datails-modal').modal('hide')
     gCurrBook = null
     const queryStringParams = `?currBookId=${0}`
     const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
@@ -130,8 +126,6 @@ function renderFilterByQueryStringParams() {
 
     const currBookId = +queryStringParams.get('currBookId')
     if (currBookId) onReadBook(currBookId)
-
-
 
     if (!filterBy.maxPrice && !filterBy.minRate) return
 

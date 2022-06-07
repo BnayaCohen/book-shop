@@ -1,25 +1,25 @@
-body {
+/* body {
     background-color: rgb(199, 222, 157);
     color: whitesmoke;
     overflow-x: hidden;
     padding: 0 40px;
     text-align: center;
-}
+} */
 
 body.rtl {
     direction: rtl;
 }
 
 
-div{
+/* div{
     margin: 5px;
-}
+} */
 
-h3{
+/* h3{
     display: inline;
-}
+} */
 
-button {
+/* button {
     color: whitesmoke;
     border:0;
     border-radius: .2em;
@@ -27,40 +27,20 @@ button {
     padding: 6px 10px;
     margin: 4px;
     cursor: pointer;    
-}
-
-button.pressed-page{
-    background-color: rgb(115, 173, 162);
-}
-
-button:hover {
-    color: rgb(168, 207, 105);
-}
+} */
 
 section {
-    background-color: rgb(139, 194, 106);
+    background-color: rgb(99, 109, 93);
     width: 90%;
     position: absolute;
     top: 55%;
     left: 50%;
+    padding: 15px;
     transform: translate(-50%, -50%);
     border-radius: 0.2em;
 }
 
-.book-update-modal{
-    background-color: rgb(64, 72, 60);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 0.2em;
-    width:50%;
-    height: 25%;
-    padding-top: 60px;
-    display: none;
-}
-
-.book-datails-modal{
+/* .book-datails-modal{
     background-color: rgb(64, 72, 60);
     position: absolute;
     top: 50%;
@@ -69,32 +49,32 @@ section {
     border-radius: 0.2em;
     width: 90%;
     display: none;
-}
+} */
 
-table {
+/* table {
     background-color: rgb(104, 114, 66);
     width: 98%;
     margin: auto;
     border: solid;
     border-radius: 0.5em;
-}
+} */
 
-th{
+/* th{
     border-bottom: solid;
     text-align: start;
+} */
+
+.table th:hover {
+    background-color: rgb(215, 227, 173);
 }
 
-th:hover{
-    background-color: rgb(76, 82, 55);
-}
-
-.cell {
+/* .cell {
     background-color: rgb(200, 193, 178);
     width:3em;
     height: 2em;
     color: #222;
     border-radius: 0.1em;
-}
+} */
 
 img{
     width: 60px;;
